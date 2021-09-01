@@ -44,6 +44,7 @@ const FeaturedGame = () => {
                 title={item.name}
                 category={item.category.name}
                 thumbnail={`${API_IMG}/${item.thumbnail}`}
+                id={item._id}
               />
             );
           })}
