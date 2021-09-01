@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import GameItem from "../../molecules/GameItem";
 import axios from "axios";
 import { getFeaturedGame } from "../../../services/player";
+import { GameItemTypes } from "../../../services/data-types";
 
 const FeaturedGame = () => {
   const [gameList, setGameList] = useState([]);
@@ -14,6 +15,8 @@ const FeaturedGame = () => {
   useEffect(async () => {
     getFeatureGameList();
   }, []);
+
+  const API_IMG = process.env.NEXT_PUBLIC_IMG;
 
   // useEffect(async () => {
   //   const response = await axios.get(
@@ -34,13 +37,13 @@ const FeaturedGame = () => {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          {gameList.map((item) => {
+          {gameList.map((item: GameItemTypes) => {
             return (
               <GameItem
                 key={item._id}
                 title={item.name}
                 category={item.category.name}
-                thumbnail={`https://api-bwa-storegg.herokuapp.com/uploads/${item.thumbnail}`}
+                thumbnail={`${API_IMG}/${item.thumbnail}`}
               />
             );
           })}
