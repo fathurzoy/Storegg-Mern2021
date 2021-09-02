@@ -15,11 +15,15 @@ const Detail = () => {
       name: "",
     },
   });
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
 
   const getVoucherDetailAPI = useCallback(async (id) => {
     const data = await getDetailVoucher(id);
     console.log("data", data);
     setDataItem(data.detail);
+    setNominals(data.detail.nominals);
+    setPayments(data.payment);
   }, []);
 
   useEffect(() => {
@@ -52,7 +56,7 @@ const Detail = () => {
             <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
               <TopUpItem data={dataItem} type="dekstop" />
               <hr />
-              <TopUpForm />
+              <TopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>

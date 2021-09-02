@@ -2,7 +2,11 @@ import React from "react";
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 
-const TopUpForm = () => {
+interface TopUpFormProps {}
+const TopUpForm = (props) => {
+  const { nominals, payments } = props;
+  console.log("payments", payments);
+
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">
@@ -28,24 +32,24 @@ const TopUpForm = () => {
           Nominal Top Up
         </p>
         <div className="row justify-content-between">
-          <NominalItem
-            _id="123"
-            coinQuantity={20}
-            coinName="GOLD"
-            price={50000}
-          />
-          <NominalItem
+          {nominals.map((nominal) => {
+            return (
+              <NominalItem
+                key={nominal._id}
+                _id={nominal._id}
+                coinQuantity={nominal.coinQuantity}
+                coinName={nominal.coinName}
+                price={nominal.price}
+              />
+            );
+          })}
+          {/* <NominalItem
             _id="124"
             coinQuantity={20}
             coinName="GOLD"
             price={50000}
-          />
-          <NominalItem
-            _id="125"
-            coinQuantity={20}
-            coinName="GOLD"
-            price={50000}
-          />
+          /> */}
+
           <div className="col-lg-4 col-sm-6">{/* <!-- Blank --> */}</div>
         </div>
       </div>
@@ -55,8 +59,18 @@ const TopUpForm = () => {
         </p>
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
-            <PaymentItem bankID="126" type="Transfer" name="BCA" />
-            <PaymentItem bankID="127" type="Transfer" name="Mandiri" />
+            {payments.map((payment) =>
+              payment.banks.map((bank) => {
+                return (
+                  <PaymentItem
+                    bankID={bank._id}
+                    type={payment.type}
+                    name={bank.bankName}
+                  />
+                );
+              })
+            )}
+            {/* <PaymentItem bankID="127" type="Transfer" name="Mandiri" /> */}
             <div className="col-lg-4 col-sm-6">{/* <!-- Blank --> */}</div>
           </div>
         </fieldset>
