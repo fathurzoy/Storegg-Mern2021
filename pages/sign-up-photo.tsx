@@ -1,15 +1,22 @@
 import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
+import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
 
 const SignUpPhoto = () => {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [localForm, setLocalForm] = useState({
+    name: "",
+    email: "",
+  });
 
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
 
-    console.log("data", data);
+    // console.log("data", data);
     setCategories(data);
     setFavorite(data[0]._id);
   }, [getGameCategory]);
@@ -18,8 +25,30 @@ const SignUpPhoto = () => {
     getGameCategoryAPI();
   }, []);
 
-  const onSubmit = () => {
+  useEffect(() => {
+    const getLocalForm = localStorage.getItem("user-form");
+    setLocalForm(JSON.parse(getLocalForm));
+  }, []);
+
+  const onSubmit = async () => {
     console.log("favorite", favorite);
+    console.log("image: ", image);
+    const getLocalForm = await localStorage.getItem("user-form");
+    const form = JSON.parse(getLocalForm);
+    const data = new FormData();
+
+    data.append("image", image);
+    data.append("email", form.email);
+    data.append("name", form.name);
+    data.append("password", form.password);
+    data.append("username", form.username);
+    data.append("phoneNumber", "08981923239");
+    data.append("role", "user");
+    data.append("status", "Y");
+    data.append("favorite", favorite);
+
+    const result = await setSignUp(data);
+    console.log("result:", result);
   };
 
   return (
@@ -32,26 +61,43 @@ const SignUpPhoto = () => {
               <div className="mb-20">
                 <div className="image-upload text-center">
                   <label htmlFor="avatar">
-                    <Image
-                      src="/icon/upload.svg"
-                      width={120}
-                      height={120}
-                      alt="upload"
-                    />
+                    {/* next image belum support blob */}
+                    {imagePreview ? (
+                      <img
+                        src={imagePreview}
+                        width={120}
+                        height={120}
+                        className="img-upload"
+                        alt="upload"
+                      />
+                    ) : (
+                      <Image
+                        src="/icon/upload.svg"
+                        width={120}
+                        height={120}
+                        alt="upload"
+                      />
+                    )}
                   </label>
                   <input
                     id="avatar"
                     type="file"
                     name="avatar"
                     accept="image/png, image/jpeg"
+                    onChange={(event) => {
+                      console.log(event.target.files[0]);
+                      const img = event.target.files[0];
+                      setImagePreview(URL.createObjectURL(img));
+                      return setImage(img);
+                    }}
                   />
                 </div>
               </div>
               <h2 className="fw-bold text-xl text-center color-palette-1 m-0">
-                Shayna Anne
+                {localForm.name}
               </h2>
               <p className="text-lg text-center color-palette-1 m-0">
-                shayna@anne.com
+                {localForm.email}
               </p>
               <div className="pt-50 pb-50">
                 <label
@@ -68,13 +114,11 @@ const SignUpPhoto = () => {
                   value={favorite}
                   onChange={(event) => setFavorite(event.target.value)}
                 >
-                  {categories.map((category) => {
-                    return (
-                      <option value={category._id} selected>
-                        {category.name}
-                      </option>
-                    );
-                  })}
+                  {categories.map((category) => (
+                    <option value={category._id} selected>
+                      {category.name}
+                    </option>
+                  ))}
                   {/* <option value="fps">First Person Shoter</option> */}
                 </select>
               </div>
