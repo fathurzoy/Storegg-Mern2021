@@ -1,7 +1,27 @@
 import Image from "next/image";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { getGameCategory } from "../services/player";
 
 const SignUpPhoto = () => {
+  const [categories, setCategories] = useState([]);
+  const [favorite, setFavorite] = useState("");
+
+  const getGameCategoryAPI = useCallback(async () => {
+    const data = await getGameCategory();
+
+    console.log("data", data);
+    setCategories(data);
+    setFavorite(data[0]._id);
+  }, [getGameCategory]);
+
+  useEffect(() => {
+    getGameCategoryAPI();
+  }, []);
+
+  const onSubmit = () => {
+    console.log("favorite", favorite);
+  };
+
   return (
     // <!-- Sign Up Photo -->
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
@@ -45,26 +65,31 @@ const SignUpPhoto = () => {
                   name="category"
                   className="form-select d-block w-100 rounded-pill text-lg"
                   aria-label="Favorite Game"
+                  value={favorite}
+                  onChange={(event) => setFavorite(event.target.value)}
                 >
-                  <option value="" disabled selected>
-                    Select Category
-                  </option>
-                  <option value="fps">First Person Shoter</option>
-                  <option value="rpg">Role Playing Game</option>
-                  <option value="arcade">Arcade</option>
-                  <option value="sport">Sport</option>
+                  {categories.map((category) => {
+                    return (
+                      <option value={category._id} selected>
+                        {category.name}
+                      </option>
+                    );
+                  })}
+                  {/* <option value="fps">First Person Shoter</option> */}
                 </select>
               </div>
             </div>
 
             <div className="button-group d-flex flex-column mx-auto">
-              <a
+              <button
+                type="button"
                 className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                href="/sign-up-photo-success"
-                role="button"
+                // href="/sign-up-photo-success"
+                // role="button"
+                onClick={onSubmit}
               >
                 Create My Account
-              </a>
+              </button>
               {/* <!-- <button type="submit" className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
                             role="button">Create My Account</button> --> */}
               <a
