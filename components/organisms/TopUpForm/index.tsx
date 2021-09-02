@@ -1,9 +1,17 @@
 import React from "react";
+import {
+  BankTypes,
+  NominalsTypes,
+  PaymentTypes,
+} from "../../../services/data-types";
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 
-interface TopUpFormProps {}
-const TopUpForm = (props) => {
+interface TopUpFormProps {
+  nominals: NominalsTypes[];
+  payments: PaymentTypes[];
+}
+const TopUpForm = (props: TopUpFormProps) => {
   const { nominals, payments } = props;
   console.log("payments", payments);
 
