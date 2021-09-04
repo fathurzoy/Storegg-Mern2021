@@ -25,7 +25,9 @@ const SignInForm = () => {
         toast.error(response.message);
       } else {
         toast.success("Login Berhasil");
-        router.push("/");
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
       }
     }
   };
