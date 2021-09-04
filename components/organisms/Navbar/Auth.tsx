@@ -1,12 +1,39 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 
-interface AuthProps {
-  isLogin?: boolean;
-}
+// interface AuthProps {
+//   isLogin?: boolean;
+// }
 
-const Auth = (props: Partial<AuthProps>) => {
-  const { isLogin } = props;
+// const Auth = (props: Partial<AuthProps>) => {
+const Auth = () => {
+  // const {isLogin} = props;
+  const [isLogin, setIslogin] = useState(false);
+  const [user, setUser] = useState({
+    avatar: "",
+    email: "",
+    id: "",
+    username: "",
+    name: "",
+  });
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      const jwtToken = atob(token); //atob ugly to beautifull
+      const payload = jwtDecode(jwtToken);
+      // console.log("jwtToken", payload);
+      const user = payload.player;
+      // const IMG = process.env.NEXT_PUBLIC_IMG;
+      // user.avatar = `${IMG}/${user.avatar}`;
+      setIslogin(true);
+      setUser(user);
+      console.log("user", user);
+    }
+  }, []);
+
   if (isLogin) {
     return (
       <li className="nav-item my-auto dropdown d-flex">
@@ -21,7 +48,7 @@ const Auth = (props: Partial<AuthProps>) => {
             aria-expanded="false"
           >
             <img
-              src="/img/avatar-1.png"
+              src={user.avatar}
               className="rounded-circle"
               width="40"
               height="40"

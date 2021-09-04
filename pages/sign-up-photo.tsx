@@ -45,7 +45,7 @@ const SignUpPhoto = () => {
     data.append("email", form.email);
     data.append("name", form.name);
     data.append("password", form.password);
-    data.append("username", form.username);
+    data.append("username", "fathur");
     data.append("phoneNumber", "08981923239");
     data.append("role", "user");
     data.append("status", "Y");
@@ -60,7 +60,7 @@ const SignUpPhoto = () => {
       router.push("/sign-up-success");
       localStorage.removeItem("user-form");
     }
-    // console.log("result:", result);
+    console.log("result:", result);
   };
 
   return (

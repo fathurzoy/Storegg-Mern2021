@@ -27,17 +27,17 @@ const SignInForm = () => {
         toast.error(response.message);
       } else {
         toast.success("Login Berhasil");
-        const { token } = response.data.token;
+        const token = response.data.token;
         // console.log("token: ", token);
         // const user = jwt_decode(token);
         // console.log("user: ", user);
         //*sebelum menyimpan ke cookie kita buat jadi ugly / jelek
-        const tokenBase64 = btoa(token); //default dari windows untuk membuat sebuah string menjadi ugly
+        const tokenBase64 = btoa(token); //default dari windows untuk membuat sebuah string menjadi ugly atau beautiful to ugly
         // console.log("tokenBase64", tokenBase64);
         Cookies.set("token", tokenBase64, { expires: 1 });
-        // setTimeout(() => {
-        //   router.push("/");
-        // }, 2000);
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
       }
     }
   };
