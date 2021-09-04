@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLogin } from "../../../services/auth";
 import { useRouter } from "next/dist/client/router";
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
@@ -25,9 +27,17 @@ const SignInForm = () => {
         toast.error(response.message);
       } else {
         toast.success("Login Berhasil");
-        setTimeout(() => {
-          router.push("/");
-        }, 2000);
+        const { token } = response.data.token;
+        // console.log("token: ", token);
+        // const user = jwt_decode(token);
+        // console.log("user: ", user);
+        //*sebelum menyimpan ke cookie kita buat jadi ugly / jelek
+        const tokenBase64 = btoa(token); //default dari windows untuk membuat sebuah string menjadi ugly
+        // console.log("tokenBase64", tokenBase64);
+        Cookies.set("token", tokenBase64, { expires: 1 });
+        // setTimeout(() => {
+        //   router.push("/");
+        // }, 2000);
       }
     }
   };
