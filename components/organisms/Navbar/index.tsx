@@ -20,7 +20,8 @@ const Navbar = () => {
               <Menu title="Rewards" />
               <Menu title="Discover" />
               <Menu title="Global Rank" />
-              <Auth isLogin={false} />
+              {/* <Auth isLogin={false} /> */}
+              <Auth />
             </ul>
           </div>
         </div>
