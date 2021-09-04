@@ -1,9 +1,17 @@
+import jwtDecode from "jwt-decode";
 import Image from "next/image";
 import React from "react";
 import CheckoutDetail from "../components/organisms/CheckoutDetail";
 import CheckoutItem from "../components/organisms/CheckoutItem";
+import { JWTPayloadTypes, UserTypes } from "../services/data-types";
 
-const Checkout = () => {
+interface CheckoutProps {
+  user: UserTypes;
+}
+const Checkout = (props: CheckoutProps) => {
+  const { user } = props;
+  console.log("user: ", user);
+
   return (
     <>
       {/* <!-- Checkout Content --> */}
@@ -30,3 +38,30 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+export async function getServerSideProps({ req }) {
+  const { token } = req.cookies;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+  // console.log("token:", token); //cek di bash
+
+  const jwtToken = Buffer.from(token, "base64").toString("ascii"); //sama seperti atob di client side
+  console.log("jwtToken:", jwtToken);
+  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+  console.log("payload", payload);
+  const userFromPayload: UserTypes = payload.player;
+  // const IMG = process.env.NEXT_PUBLIC_IMG;
+  // user.avatar = `${IMG}/${userFromPayload.avatar}`;
+
+  return {
+    props: {
+      user: userFromPayload,
+    },
+  };
+}

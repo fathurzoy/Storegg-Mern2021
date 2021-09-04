@@ -26,10 +26,10 @@ const Auth = () => {
       // console.log("jwtToken", payload);
       const userFromPayload: UserTypes = payload.player;
       // const IMG = process.env.NEXT_PUBLIC_IMG;
-      // user.avatar = `${IMG}/${userFromPayload.avatar}`;
+      // userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
       setIslogin(true);
       setUser(userFromPayload);
-      console.log("user", user);
+      console.log("user", userFromPayload);
     }
   }, []);
 
