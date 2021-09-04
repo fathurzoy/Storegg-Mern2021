@@ -13,7 +13,7 @@ interface TopUpFormProps {
 }
 const TopUpForm = (props: TopUpFormProps) => {
   const { nominals, payments } = props;
-  console.log("payments", payments);
+  // console.log("payments", payments);
 
   return (
     <form action="./checkout.html" method="POST">

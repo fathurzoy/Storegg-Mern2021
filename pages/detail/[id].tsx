@@ -20,7 +20,7 @@ const Detail = () => {
 
   const getVoucherDetailAPI = useCallback(async (id) => {
     const data = await getDetailVoucher(id);
-    console.log("data", data);
+    // console.log("data", data);
     setDataItem(data.detail);
     setNominals(data.detail.nominals);
     setPayments(data.payment);
@@ -28,10 +28,10 @@ const Detail = () => {
 
   useEffect(() => {
     if (isReady) {
-      console.log("router sudah tersedia", query.id);
+      // console.log("router sudah tersedia", query.id);
       getVoucherDetailAPI(query.id);
     } else {
-      console.log("router tidak tersedia");
+      // console.log("router tidak tersedia");
     }
   }, [isReady]);
 

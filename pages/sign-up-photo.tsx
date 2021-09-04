@@ -2,6 +2,9 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/dist/client/router";
 
 const SignUpPhoto = () => {
   const [categories, setCategories] = useState([]);
@@ -12,6 +15,7 @@ const SignUpPhoto = () => {
     name: "",
     email: "",
   });
+  const router = useRouter();
 
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
@@ -31,8 +35,8 @@ const SignUpPhoto = () => {
   }, []);
 
   const onSubmit = async () => {
-    console.log("favorite", favorite);
-    console.log("image: ", image);
+    // console.log("favorite", favorite);
+    // console.log("image: ", image);
     const getLocalForm = await localStorage.getItem("user-form");
     const form = JSON.parse(getLocalForm);
     const data = new FormData();
@@ -48,7 +52,14 @@ const SignUpPhoto = () => {
     data.append("favorite", favorite);
 
     const result = await setSignUp(data);
-    console.log("result:", result);
+    if (result?.error === 1) {
+      toast.error(result.message);
+    } else {
+      toast.success("Register Berhasil");
+      router.push("/sign-up-success");
+      localStorage.removeItem("user-form");
+    }
+    // console.log("result:", result);
   };
 
   return (
@@ -147,6 +158,7 @@ const SignUpPhoto = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </section>
   );
 };
