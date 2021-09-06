@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BankTypes,
   NominalsTypes,
@@ -12,8 +12,14 @@ interface TopUpFormProps {
   payments: PaymentTypes[];
 }
 const TopUpForm = (props: TopUpFormProps) => {
+  const [verifyID, setVerifyID] = useState("");
   const { nominals, payments } = props;
   // console.log("payments", payments);
+
+  const onNominalItemChange = (data: NominalsTypes) => {
+    console.log("data: ", data);
+    localStorage.setItem("nominal-item", JSON.stringify(data));
+  };
 
   return (
     <form action="./checkout.html" method="POST">
@@ -32,6 +38,8 @@ const TopUpForm = (props: TopUpFormProps) => {
             name="ID"
             aria-describedby="verifyID"
             placeholder="Enter your ID"
+            value={verifyID}
+            onChange={(event) => setVerifyID(event.target.value)}
           />
         </div>
       </div>
@@ -48,6 +56,7 @@ const TopUpForm = (props: TopUpFormProps) => {
                 coinQuantity={nominal.coinQuantity}
                 coinName={nominal.coinName}
                 price={nominal.price}
+                onChange={() => onNominalItemChange(nominal)}
               />
             );
           })}
