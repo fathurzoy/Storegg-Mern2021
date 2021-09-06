@@ -1,3 +1,4 @@
+import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
 import {
   BankTypes,
@@ -13,12 +14,53 @@ interface TopUpFormProps {
 }
 const TopUpForm = (props: TopUpFormProps) => {
   const [verifyID, setVerifyID] = useState("");
+  const [bankAccountName, setBankAccountName] = useState("");
+  const [nominalItem, setNominalItem] = useState({});
+  const [paymentItem, setPaymentItem] = useState({});
   const { nominals, payments } = props;
   // console.log("payments", payments);
 
+  const router = useRouter();
+
   const onNominalItemChange = (data: NominalsTypes) => {
-    console.log("data: ", data);
-    localStorage.setItem("nominal-item", JSON.stringify(data));
+    console.log("nominal: ", data);
+    setNominalItem(data);
+    // localStorage.setItem("nominal-item", JSON.stringify(data));
+  };
+
+  const onPaymentItemChange = (payment: PaymentTypes, bank: BankTypes) => {
+    console.log("payment: ", payment);
+    console.log("bank: ", bank);
+    const data = {
+      payment,
+      bank,
+    };
+    setPaymentItem(data);
+    // localStorage.setItem("payment-item", JSON.stringify(data));
+  };
+
+  const onSubmit = () => {
+    console.log("verifyID: ", verifyID);
+    console.log("bank account: ", bankAccountName);
+    console.log("nominal item: ", nominalItem);
+    console.log("payment item: ", paymentItem);
+    if (
+      verifyID === "" ||
+      bankAccountName === "" ||
+      nominalItem === {} ||
+      paymentItem === {}
+    ) {
+      alert("Silakan isi semua data!!!");
+    } else {
+      const data = {
+        verifyID,
+        bankAccountName,
+        nominalItem,
+        paymentItem,
+      };
+      localStorage.setItem("data-topup", JSON.stringify(data));
+      router.push("/checkout");
+    }
   };
 
   return (
@@ -80,9 +122,11 @@ const TopUpForm = (props: TopUpFormProps) => {
               payment.banks.map((bank) => {
                 return (
                   <PaymentItem
+                    key={bank._id}
                     bankID={bank._id}
                     type={payment.type}
                     name={bank.bankName}
+                    onChange={() => onPaymentItemChange(payment, bank)}
                   />
                 );
               })
@@ -106,16 +150,18 @@ const TopUpForm = (props: TopUpFormProps) => {
           name="bankAccount"
           aria-describedby="bankAccount"
           placeholder="Enter your Bank Account Name"
+          value={bankAccountName}
+          onChange={(event) => setBankAccountName(event.target.value)}
         />
       </div>
       <div className="d-sm-block d-flex flex-column w-100">
-        <a
-          href="/checkout"
-          type="submit"
+        <button
+          type="button"
           className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg"
+          onClick={onSubmit}
         >
           Continue
-        </a>
+        </button>
         {/* <!-- <button type="submit"
                     className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg">Continue</button> --> */}
       </div>
