@@ -1,6 +1,7 @@
 import jwtDecode from "jwt-decode";
 import Image from "next/image";
 import React from "react";
+import CheckoutConfirmation from "../components/organisms/CheckoutConfirmation";
 import CheckoutDetail from "../components/organisms/CheckoutDetail";
 import CheckoutItem from "../components/organisms/CheckoutItem";
 import { JWTPayloadTypes, UserTypes } from "../services/data-types";
@@ -31,6 +32,7 @@ const Checkout = (props: CheckoutProps) => {
           <CheckoutItem />
           <hr />
           <CheckoutDetail />
+          <CheckoutConfirmation />
         </div>
       </section>
     </>
