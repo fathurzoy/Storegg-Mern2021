@@ -2,8 +2,10 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css"; //toast sudah ditaro di _app global
+import { toast } from "react-toastify";
+
 import { useRouter } from "next/dist/client/router";
 
 const SignUpPhoto = () => {
@@ -159,7 +161,7 @@ const SignUpPhoto = () => {
           </div>
         </form>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> //toast sudah ditaro di _app global */}
     </section>
   );
 };

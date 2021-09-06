@@ -1,5 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import {
   BankTypes,
   NominalsTypes,
@@ -50,7 +51,8 @@ const TopUpForm = (props: TopUpFormProps) => {
       nominalItem === {} ||
       paymentItem === {}
     ) {
-      alert("Silakan isi semua data!!!");
+      // alert("Silakan isi semua data!!!");
+      toast.error("Silakan isi semua data!!!");
     } else {
       const data = {
         verifyID,
