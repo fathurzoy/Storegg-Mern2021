@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css"; //toast sudah ditaro di _app global
+import { toast, ToastContainer } from "react-toastify";
 import { setLogin } from "../../../services/auth";
 import { useRouter } from "next/dist/client/router";
 import jwt_decode from "jwt-decode";
@@ -35,9 +36,10 @@ const SignInForm = () => {
         const tokenBase64 = btoa(token); //default dari windows untuk membuat sebuah string menjadi ugly atau beautiful to ugly
         // console.log("tokenBase64", tokenBase64);
         Cookies.set("token", tokenBase64, { expires: 1 });
-        setTimeout(() => {
-          router.push("/");
-        }, 2000);
+        // setTimeout(() => {
+        //   router.push("/");
+        // }, 2000);
+        router.push("/");
       }
     }
   };
@@ -104,7 +106,7 @@ const SignInForm = () => {
           </a>
         </Link>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer/> //toast sudah ditaro di _app global*/}
     </>
   );
 };
