@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const CompleteCheckout = () => {
   return (
@@ -266,17 +267,19 @@ const CompleteCheckout = () => {
           </p>
         </div>
         <div className="button-group d-flex flex-column mx-auto">
-          <a
-            className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
-            href="../member/overview.html"
-            role="button"
-          >
-            My Dashboard
-          </a>
+          <Link href="/member">
+            <a
+              className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
+              role="button"
+            >
+              My Dashboard
+            </a>
+          </Link>
           <a
             className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
-            href="/#"
+            href="https://wa.me/62895368567925?text=Saya%20sudah%20melakukan%20pembayaran"
             role="button"
+            target="_blank"
           >
             WhatsApp ke Admin
           </a>
