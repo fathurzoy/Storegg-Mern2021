@@ -62,7 +62,7 @@ const SignUpPhoto = () => {
       router.push("/sign-up-success");
       localStorage.removeItem("user-form");
     }
-    console.log("result:", result);
+    // console.log("result:", result);
   };
 
   return (
@@ -99,7 +99,7 @@ const SignUpPhoto = () => {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
-                      console.log(event.target.files[0]);
+                      // console.log(event.target.files[0]);
                       const img = event.target.files[0];
                       setImagePreview(URL.createObjectURL(img));
                       return setImage(img);

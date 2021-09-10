@@ -24,14 +24,14 @@ const TopUpForm = (props: TopUpFormProps) => {
   const router = useRouter();
 
   const onNominalItemChange = (data: NominalsTypes) => {
-    console.log("nominal: ", data);
+    // console.log("nominal: ", data);
     setNominalItem(data);
     // localStorage.setItem("nominal-item", JSON.stringify(data));
   };
 
   const onPaymentItemChange = (payment: PaymentTypes, bank: BankTypes) => {
-    console.log("payment: ", payment);
-    console.log("bank: ", bank);
+    // console.log("payment: ", payment);
+    // console.log("bank: ", bank);
     const data = {
       payment,
       bank,
@@ -41,10 +41,10 @@ const TopUpForm = (props: TopUpFormProps) => {
   };
 
   const onSubmit = () => {
-    console.log("verifyID: ", verifyID);
-    console.log("bank account: ", bankAccountName);
-    console.log("nominal item: ", nominalItem);
-    console.log("payment item: ", paymentItem);
+    // console.log("verifyID: ", verifyID);
+    // console.log("bank account: ", bankAccountName);
+    // console.log("nominal item: ", nominalItem);
+    // console.log("paymesnt item: ", paymentItem);
     if (
       verifyID === "" ||
       bankAccountName === "" ||

@@ -12,7 +12,7 @@ const CheckoutItem = () => {
   useEffect(() => {
     const dataFromLocal = localStorage.getItem("data-item");
     const dataItemLocal = JSON.parse(dataFromLocal!);
-    console.log("data item: ", dataItemLocal);
+    // console.log("data item: ", dataItemLocal);
     setDataItem(dataItemLocal);
   }, []);
 

@@ -18,7 +18,7 @@ const Profile = () => {
       // console.log("jwtToken", payload);
       const userFromPayload: UserTypes = payload.player;
       setUser(userFromPayload);
-      console.log("user", userFromPayload);
+      // console.log("user", userFromPayload);
     }
   }, []);
 

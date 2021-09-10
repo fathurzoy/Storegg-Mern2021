@@ -29,7 +29,7 @@ const Auth = () => {
       // userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
       setIslogin(true);
       setUser(userFromPayload);
-      console.log("user", userFromPayload);
+      // console.log("user", userFromPayload);
     }
   }, []);
 
