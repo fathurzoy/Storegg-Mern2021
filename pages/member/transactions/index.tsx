@@ -32,19 +32,7 @@ export async function getServerSideProps({ req }: getServerSideProps) {
       },
     };
   }
-  // console.log("token:", token); //cek di bash
-
-  const jwtToken = Buffer.from(token, "base64").toString("ascii"); //sama seperti atob di client side
-  // console.log("jwtToken:", jwtToken);
-  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-  // console.log("payload", payload);
-  const userFromPayload: UserTypes = payload.player;
-  // const IMG = process.env.NEXT_PUBLIC_IMG;
-  // user.avatar = `${IMG}/${userFromPayload.avatar}`;
-
   return {
-    props: {
-      user: userFromPayload,
-    },
+    props: {},
   };
 }

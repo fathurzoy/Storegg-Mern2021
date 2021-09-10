@@ -11,9 +11,10 @@ interface TableRowProps {
   price: number;
   status: string;
   // status: "Pending" | "Success" | "Failed";
+  id: string;
 }
 const TableRow = (props: TableRowProps) => {
-  const { image, title, category, item, price, status } = props;
+  const { image, title, category, item, price, status, id } = props;
   const statusClass = cx({
     "float-start icon-status": true,
     pending: status === "pending",
@@ -63,7 +64,7 @@ const TableRow = (props: TableRowProps) => {
         </div>
       </td>
       <td>
-        <Link href="/member/transaction/detail">
+        <Link href={`/member/transaction/${id}`}>
           <a className="btn btn-status rounded-pill text-sm">Details</a>
         </Link>
       </td>
