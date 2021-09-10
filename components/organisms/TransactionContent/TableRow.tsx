@@ -6,17 +6,18 @@ interface TableRowProps {
   image: string;
   title: string;
   category: string;
-  item: number;
+  item: string;
   price: number;
-  status: "Pending" | "Success" | "Failed";
+  status: string;
+  // status: "Pending" | "Success" | "Failed";
 }
 const TableRow = (props: TableRowProps) => {
   const { image, title, category, item, price, status } = props;
   const statusClass = cx({
     "float-start icon-status": true,
-    pending: status === "Pending",
-    success: status === "Success",
-    failed: status === "Failed",
+    pending: status === "pending",
+    success: status === "success",
+    failed: status === "failed",
   });
 
   return (
@@ -24,7 +25,7 @@ const TableRow = (props: TableRowProps) => {
       <th scope="row">
         <img
           className="float-start me-3 mb-lg-0 mb-3"
-          src={`/img/${image}.png`}
+          src={image}
           width="80"
           height="60"
           alt=""

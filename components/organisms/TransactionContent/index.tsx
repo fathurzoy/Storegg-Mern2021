@@ -7,6 +7,7 @@ import TableRow from "./TableRow";
 
 const TransactionContent = () => {
   const [total, setTotal] = useState(0);
+  const [transactions, setTransactions] = useState([]);
 
   const getMemberTransactionAPI = useCallback(async () => {
     const response = await getMemberTransactions();
@@ -15,6 +16,7 @@ const TransactionContent = () => {
     } else {
       console.log("data: ", response.data);
       setTotal(response.data.total);
+      setTransactions(response.data.data);
     }
   }, []);
 
@@ -22,6 +24,7 @@ const TransactionContent = () => {
     getMemberTransactionAPI();
   }, []);
 
+  const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <>
       <main className="main-wrapper">
@@ -69,14 +72,27 @@ const TransactionContent = () => {
                   </tr>
                 </thead>
                 <tbody id="list_status_item">
-                  <TableRow
-                    image="overview-1"
-                    title="Mobile Legends: The New Battle 2021"
-                    category="Desktop"
-                    item={200}
-                    price={120000}
-                    status="Pending"
-                  />
+                  {transactions.map((transaction) => {
+                    return (
+                      <TableRow
+                        key={transaction._id}
+                        image={`${IMG}/${transaction.historyVoucherTopup.thumbnail}`}
+                        title={transaction.historyVoucherTopup.gameName}
+                        category={transaction.historyVoucherTopup.category}
+                        item={`${transaction.historyVoucherTopup.coinQuantity} ${transaction.historyVoucherTopup.coinName}`}
+                        price={transaction.value}
+                        status={transaction.status}
+                      />
+                    );
+                  })}
+                  {/* <TableRow
+                      image="overview-1"
+                      title="Mobile Legends: The New Battle 2021"
+                      category="Desktop"
+                      item={200}
+                      price={120000}
+                      status="Pending"
+                    />
                   <TableRow
                     image="overview-2"
                     title="Mobile Legends: The New Battle 2021"
@@ -94,13 +110,13 @@ const TransactionContent = () => {
                     status="Failed"
                   />
                   <TableRow
-                    image="overview-4"
+                    image="/img/overview-4.png"
                     title="Mobile Legends: The New Battle 2021"
                     category="Desktop"
                     item={200}
                     price={120000}
                     status="Pending"
-                  />
+                  /> */}
                 </tbody>
               </table>
             </div>
