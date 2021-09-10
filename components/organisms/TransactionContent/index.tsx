@@ -26,7 +26,7 @@ const TransactionContent = () => {
     getMemberTransactionAPI("all");
   }, []);
 
-  const onTabClick = (value) => {
+  const onTabClick = (value: string) => {
     setTab(value);
     getMemberTransactionAPI(value);
   };

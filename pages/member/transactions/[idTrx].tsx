@@ -2,8 +2,11 @@ import jwtDecode from "jwt-decode";
 import React from "react";
 import TransactionDetailContent from "../../../components/organisms/TransactionDetailContent";
 import { JWTPayloadTypes, UserTypes } from "../../../services/data-types";
+import { getTransactionDetail } from "../../../services/member";
 
-const TransactionDetail = () => {
+const TransactionDetail = ({ transactionDetail }) => {
+  // console.log("detail: ", transactionDetail);
+
   return (
     // <!-- Transactions Detail -->
     <section className="transactions-detail overflow-auto">
@@ -18,9 +21,14 @@ interface getServerSideProps {
   req: {
     cookies: { token: string };
   };
+  params: {
+    idTrx: string;
+  };
 }
 
-export async function getServerSideProps({ req }: getServerSideProps) {
+export async function getServerSideProps({ req, params }: getServerSideProps) {
+  console.log("params: ", params);
+  const { idTrx } = params;
   const { token } = req.cookies;
   if (!token) {
     return {
@@ -38,9 +46,12 @@ export async function getServerSideProps({ req }: getServerSideProps) {
   // console.log("payload", payload);
   const userFromPayload: UserTypes = payload.player;
 
+  const response = await getTransactionDetail(idTrx, jwtToken);
+  // console.log("data: ", response);
+
   return {
     props: {
-      user: userFromPayload,
+      transactionDetail: response.data,
     },
   };
 }

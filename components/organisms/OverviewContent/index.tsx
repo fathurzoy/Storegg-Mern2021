@@ -44,7 +44,7 @@ const OverviewContent = () => {
                   {item.name}
                 </Categori>
               ))}
-              <Categori nominal={1800000} icon="ic-desktop">
+              {/* <Categori nominal={1800000} icon="ic-desktop">
                 Game <br /> Dekstop
               </Categori>
               <Categori nominal={700000} icon="ic-mobile">
@@ -52,7 +52,7 @@ const OverviewContent = () => {
               </Categori>
               <Categori nominal={600000} icon="ic-desktop">
                 Game <br /> Other
-              </Categori>
+              </Categori> */}
             </div>
           </div>
         </div>
@@ -84,14 +84,14 @@ const OverviewContent = () => {
                     status={item.status}
                   />
                 ))}
-                <TableRow
+                {/* <TableRow
                   image="img/overview-1.png"
                   title="Mobile Legent"
                   categori="Dekstop"
                   item="200 Gold"
                   price={20000}
                   status="Pending"
-                />
+                /> */}
               </tbody>
             </table>
           </div>
