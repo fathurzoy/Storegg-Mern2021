@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import cx from "classnames";
+import NumberFormat from "react-number-format";
 
 interface TableRowProps {
   image: string;
@@ -43,7 +44,15 @@ const TableRow = (props: TableRowProps) => {
         <p className="fw-medium color-palette-1 m-0">{item}</p>
       </td>
       <td>
-        <p className="fw-medium color-palette-1 m-0">{price}</p>
+        <p className="fw-medium color-palette-1 m-0">
+          <NumberFormat
+            value={price}
+            prefix="Rp. "
+            displayType="text"
+            thousandSeparator="."
+            decimalSeparator=","
+          />
+        </p>
       </td>
       <td>
         <div>
