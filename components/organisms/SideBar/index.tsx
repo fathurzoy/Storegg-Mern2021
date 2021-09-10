@@ -2,12 +2,21 @@ import React, { Profiler } from "react";
 import Profile from "./Profile";
 import Footer from "./Footer";
 import MenuItem from "./MenuItem";
+import Cookies from "js-cookie";
+import { useRouter } from "next/dist/client/router";
 
 interface SideBarProps {
   activeMenu: "overview" | "transactions" | "settings";
 }
 const SideBar = (props: SideBarProps) => {
   const { activeMenu } = props;
+  const router = useRouter();
+
+  const onLogOut = () => {
+    Cookies.remove("token");
+    router.push("/sign-in");
+  };
+
   return (
     <section className="sidebar">
       <div className="content pt-50 pb-30 ps-30">
@@ -34,7 +43,7 @@ const SideBar = (props: SideBarProps) => {
             active={activeMenu === "settings"}
             href="/member/edit-profile"
           />
-          <MenuItem title="Log Out" icon="ic-menu-logout" href="/sign-in" />
+          <MenuItem title="Log Out" icon="ic-menu-logout" onClick={onLogOut} />
         </div>
         <Footer />
       </div>
