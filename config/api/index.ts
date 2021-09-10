@@ -23,10 +23,10 @@ export default async function callApi({
   }
 
   const response = await axios({
-    url: url,
-    method: method,
+    url,
+    method,
     data,
-    headers: headers,
+    headers,
   }).catch((err) => err.response);
   // console.log("api resp: ", response);
 
@@ -39,10 +39,12 @@ export default async function callApi({
     return res;
   }
 
+  const { length } = Object.keys(response.data);
   const res = {
     error: false,
     message: "success",
-    data: response.data.data,
+    data: length > 1 ? response.data : response.data.data,
   };
+
   return res;
 }
