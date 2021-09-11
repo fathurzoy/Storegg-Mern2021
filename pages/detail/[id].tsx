@@ -4,37 +4,48 @@ import Footer from "../../components/organisms/Footer";
 import Navbar from "../../components/organisms/Navbar";
 import TopUpForm from "../../components/organisms/TopUpForm";
 import TopUpItem from "../../components/organisms/TopUpItem";
-import { getDetailVoucher } from "../../services/player";
+import {
+  GameItemTypes,
+  NominalsTypes,
+  PaymentTypes,
+} from "../../services/data-types";
+import { getDetailVoucher, getFeaturedGame } from "../../services/player";
 
-const Detail = () => {
-  const { query, isReady } = useRouter();
-  const [dataItem, setDataItem] = useState({
-    name: "",
-    thumbnail: "",
-    category: {
-      name: "",
-    },
-  });
-  const [nominals, setNominals] = useState([]);
-  const [payments, setPayments] = useState([]);
+interface DetailProps {
+  dataItem: GameItemTypes;
+  nominals: NominalsTypes[];
+  payments: PaymentTypes[];
+}
+const Detail = ({ dataItem, nominals, payments }: DetailProps) => {
+  // *Client Side
+  // const { query, isReady } = useRouter();
+  // const [dataItem, setDataItem] = useState({
+  //   name: "",
+  //   thumbnail: "",
+  //   category: {
+  //     name: "",
+  //   },
+  // });
+  // const [nominals, setNominals] = useState([]);
+  // const [payments, setPayments] = useState([]);
 
-  const getVoucherDetailAPI = useCallback(async (id) => {
-    const data = await getDetailVoucher(id);
-    // console.log("data", data);
-    setDataItem(data.detail);
-    localStorage.setItem("data-item", JSON.stringify(data.detail));
-    setNominals(data.detail.nominals);
-    setPayments(data.payment);
-  }, []);
+  // const getVoucherDetailAPI = useCallback(async (id) => {
+  //   const data = await getDetailVoucher(id);
+  //   // console.log("data", data);
+  //   setDataItem(data.detail);
+  //   localStorage.setItem("data-item", JSON.stringify(data.detail));
+  //   setNominals(data.detail.nominals);
+  //   setPayments(data.payment);
+  // }, []);
 
-  useEffect(() => {
-    if (isReady) {
-      // console.log("router sudah tersedia", query.id);
-      getVoucherDetailAPI(query.id);
-    } else {
-      // console.log("router tidak tersedia");
-    }
-  }, [isReady]);
+  // useEffect(() => {
+  //   if (isReady) {
+  //     // console.log("router sudah tersedia", query.id);
+  //     getVoucherDetailAPI(query.id);
+  //   } else {
+  //     // console.log("router tidak tersedia");
+  //   }
+  // }, [isReady]);
 
   return (
     <>
@@ -68,3 +79,40 @@ const Detail = () => {
 };
 
 export default Detail;
+
+//keunggulan halaman html sudah disediakan di sisi server jadi ketika masuk lebih cepat karna sudah disiapkan sisi server
+export async function getStaticPaths() {
+  const data = await getFeaturedGame();
+  const paths = data.map((item: GameItemTypes) => {
+    return {
+      params: {
+        id: item._id,
+      },
+    };
+  });
+  console.log("paths: ", paths);
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+interface GetStaticProps {
+  params: {
+    id: string;
+  };
+}
+export async function getStaticProps({ params }: GetStaticProps) {
+  const { id } = params;
+  const data = await getDetailVoucher(id);
+  console.log("data path: ", data);
+
+  return {
+    props: {
+      dataItem: data.detail,
+      nominals: data.detail.nominals,
+      payments: data.payment,
+    },
+  };
+}
