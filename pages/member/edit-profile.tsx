@@ -1,9 +1,31 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../components/atoms/Input";
 import SideBar from "../../components/organisms/SideBar";
+import Cookies from "js-cookie";
+import { JWTPayloadTypes, UserTypes } from "../../services/data-types";
+import jwtDecode from "jwt-decode";
 
 const EditProfile = () => {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    avatar: "",
+  });
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      const jwtToken = atob(token); //atob ugly to beautifull
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      // console.log("jwtToken", payload);
+      const userFromPayload: UserTypes = payload.player;
+      setUser(userFromPayload);
+      // console.log("user", userFromPayload);
+    }
+  }, []);
+
   return (
     // <!-- Transactions Detail -->
     <section className="edit-profile overflow-auto">
@@ -14,7 +36,7 @@ const EditProfile = () => {
           <div className="bg-card pt-30 ps-30 pe-30 pb-30">
             <form action="">
               <div className="photo d-flex">
-                <div className="position-relative me-20">
+                {/* <div className="position-relative me-20">
                   <img
                     src="/img/avatar-1.png"
                     width="90"
@@ -24,14 +46,16 @@ const EditProfile = () => {
                   <div className="avatar-overlay position-absolute top-0 d-flex justify-content-center align-items-center">
                     <img src="/icon/upload.svg" alt="icon upload" />
                   </div>
-                </div>
+                </div> */}
                 <div className="image-upload">
                   <label htmlFor="avatar">
                     <img
-                      src="/icon/upload.svg"
+                      // src="/icon/upload.svg"
+                      src={user.avatar}
                       alt="icon upload"
                       width={90}
                       height={90}
+                      style={{ borderRadius: "100%" }}
                     />
                   </label>
                   <input
@@ -43,14 +67,14 @@ const EditProfile = () => {
                 </div>
               </div>
               <div className="pt-30">
-                <Input label="Full Name" />
+                <Input label="Full Name" value={user.name} />
               </div>
               <div className="pt-30">
-                <Input label="Email Address" />
+                <Input label="Email Address" disabled value={user.email} />
               </div>
-              <div className="pt-30">
+              {/* <div className="pt-30">
                 <Input label="Phone" />
-              </div>
+              </div> */}
               <div className="button-group d-flex flex-column pt-50">
                 <button
                   type="submit"
