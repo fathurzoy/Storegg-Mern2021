@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import GameItem from "../../molecules/GameItem";
-import axios from "axios";
-import { getFeaturedGame } from "../../../services/player";
 import { GameItemTypes } from "../../../services/data-types";
+import { getFeaturedGame } from "../../../services/player";
+import GameItem from "../../molecules/GameItem";
 
 const FeaturedGame = () => {
   const [gameList, setGameList] = useState([]);
@@ -12,14 +11,14 @@ const FeaturedGame = () => {
     setGameList(data);
   }, [getFeaturedGame]);
 
-  useEffect(async () => {
+  useEffect(() => {
     getFeatureGameList();
   }, []);
 
   const API_IMG = process.env.NEXT_PUBLIC_IMG;
 
-  // useEffect(async () => {
-  //   const response = await axios.get(
+  // useEffect( () => {
+  //   const response =  axios.get(
   //     "https://api-bwa-storegg.herokuapp.com/api/v1/players/landingpage"
   //   );
   //   console.log("data", response.data);

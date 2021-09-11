@@ -66,7 +66,7 @@ const TopUpForm = (props: TopUpFormProps) => {
   };
 
   return (
-    <form action="./checkout.html" method="POST">
+    <>
       <div className="pt-md-50 pt-30">
         <div className="">
           <label
@@ -167,7 +167,7 @@ const TopUpForm = (props: TopUpFormProps) => {
         {/* <!-- <button type="submit"
                     className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg">Continue</button> --> */}
       </div>
-    </form>
+    </>
   );
 };
 

@@ -17,7 +17,7 @@ const OverviewContent = () => {
     if (response.error) {
       toast.error(response.message);
     } else {
-      console.log("data: ", response.data);
+      // console.log("data: ", response.data);
 
       setCount(response.data.count);
       setData(response.data.data);

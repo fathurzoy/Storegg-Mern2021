@@ -1,24 +1,30 @@
-import Image from "next/image";
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Input from "../../components/atoms/Input";
 import SideBar from "../../components/organisms/SideBar";
-import Cookies from "js-cookie";
-
 import { JWTPayloadTypes, UserTypes } from "../../services/data-types";
-import jwtDecode from "jwt-decode";
 import { updateProfile } from "../../services/member";
-import { toast } from "react-toastify";
-import { useRouter } from "next/dist/client/router";
+
+interface UserStateTypes {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  avatar: any;
+}
 
 const EditProfile = () => {
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserStateTypes>({
     id: "",
     name: "",
     email: "",
     phone: "",
     avatar: "",
   });
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState("/");
   const router = useRouter();
 
   useEffect(() => {
@@ -34,7 +40,7 @@ const EditProfile = () => {
   }, []);
 
   const onSubmit = async () => {
-    console.log("edit user: ", user);
+    // console.log("edit user: ", user);
     const data = new FormData();
 
     data.append("image", user.avatar);
@@ -43,7 +49,7 @@ const EditProfile = () => {
     if (response.error) {
       toast.error(response.message);
     } else {
-      console.log("data: ", response);
+      // console.log("data: ", response);
       Cookies.remove("token");
       router.push("/sign-in");
     }
@@ -72,10 +78,10 @@ const EditProfile = () => {
                 </div> */}
                 <div className="image-upload">
                   <label htmlFor="avatar">
-                    {imagePreview ? (
+                    {imagePreview === "/" ? (
                       <img
                         // src="/icon/upload.svg"
-                        src={imagePreview}
+                        src={user.avatar}
                         alt="icon upload"
                         width={90}
                         height={90}
@@ -84,7 +90,7 @@ const EditProfile = () => {
                     ) : (
                       <img
                         // src="/icon/upload.svg"
-                        src={user.avatar}
+                        src={imagePreview}
                         alt="icon upload"
                         width={90}
                         height={90}
@@ -99,7 +105,7 @@ const EditProfile = () => {
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
                       // console.log(event.target.files[0]);
-                      const img = event.target.files[0];
+                      const img = event.target.files![0];
                       setImagePreview(URL.createObjectURL(img));
                       return setUser({
                         ...user,

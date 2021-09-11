@@ -1,5 +1,4 @@
-import { useRouter } from "next/dist/client/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Footer from "../../components/organisms/Footer";
 import Navbar from "../../components/organisms/Navbar";
 import TopUpForm from "../../components/organisms/TopUpForm";

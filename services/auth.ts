@@ -1,4 +1,3 @@
-import axios from "axios";
 import callApi from "../config/api";
 import { LoginTypes } from "./data-types";
 

@@ -35,7 +35,7 @@ export interface NominalsTypes {
 
 export interface LoginTypes {
   email: string;
-  passowrd: string;
+  password: string;
 }
 
 export interface UserTypes {
@@ -43,6 +43,7 @@ export interface UserTypes {
   username: string;
   email: string;
   name: string;
+  phone: string;
   avatar: string;
 }
 

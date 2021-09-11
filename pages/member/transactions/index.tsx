@@ -1,8 +1,6 @@
-import jwtDecode from "jwt-decode";
 import React from "react";
 import SideBar from "../../../components/organisms/SideBar";
 import TransactionContent from "../../../components/organisms/TransactionContent";
-import { JWTPayloadTypes, UserTypes } from "../../../services/data-types";
 
 const Transaction = () => {
   return (

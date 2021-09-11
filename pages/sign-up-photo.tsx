@@ -7,12 +7,13 @@ import { getGameCategory } from "../services/player";
 import { toast } from "react-toastify";
 
 import { useRouter } from "next/dist/client/router";
+import { CategoryTypes } from "../services/data-types";
 
 const SignUpPhoto = () => {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
-  const [image, setImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [image, setImage] = useState<any>("");
+  const [imagePreview, setImagePreview] = useState<any>(null);
   const [localForm, setLocalForm] = useState({
     name: "",
     email: "",
@@ -100,7 +101,7 @@ const SignUpPhoto = () => {
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
                       // console.log(event.target.files[0]);
-                      const img = event.target.files[0];
+                      const img = event.target.files![0];
                       setImagePreview(URL.createObjectURL(img));
                       return setImage(img);
                     }}
@@ -128,7 +129,7 @@ const SignUpPhoto = () => {
                   value={favorite}
                   onChange={(event) => setFavorite(event.target.value)}
                 >
-                  {categories.map((category) => (
+                  {categories.map((category: CategoryTypes) => (
                     <option value={category._id} selected>
                       {category.name}
                     </option>

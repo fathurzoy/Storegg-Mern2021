@@ -1,16 +1,15 @@
-import jwtDecode from "jwt-decode";
 import Image from "next/image";
 import React from "react";
 import CheckoutConfirmation from "../components/organisms/CheckoutConfirmation";
 import CheckoutDetail from "../components/organisms/CheckoutDetail";
 import CheckoutItem from "../components/organisms/CheckoutItem";
-import { JWTPayloadTypes, UserTypes } from "../services/data-types";
 
-interface CheckoutProps {
-  user: UserTypes;
-}
-const Checkout = (props: CheckoutProps) => {
-  const { user } = props;
+// interface CheckoutProps {
+//   user: UserTypes;
+// }
+// const Checkout = (props: CheckoutProps) => {
+const Checkout = () => {
+  // const { user } = props;
   // console.log("user: ", user);
 
   return (
@@ -59,17 +58,21 @@ export async function getServerSideProps({ req }: getServerSideProps) {
   }
   // console.log("token:", token); //cek di bash
 
-  const jwtToken = Buffer.from(token, "base64").toString("ascii"); //sama seperti atob di client side
-  // console.log("jwtToken:", jwtToken);
-  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-  // console.log("payload", payload);
-  const userFromPayload: UserTypes = payload.player;
-  // const IMG = process.env.NEXT_PUBLIC_IMG;
-  // user.avatar = `${IMG}/${userFromPayload.avatar}`;
+  // const jwtToken = Buffer.from(token, "base64").toString("ascii"); //sama seperti atob di client side
+  // // console.log("jwtToken:", jwtToken);
+  // const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+  // // console.log("payload", payload);
+  // const userFromPayload: UserTypes = payload.player;
+  // // const IMG = process.env.NEXT_PUBLIC_IMG;
+  // // user.avatar = `${IMG}/${userFromPayload.avatar}`;
 
   return {
-    props: {
-      user: userFromPayload,
-    },
+    props: {},
   };
+
+  // return {
+  //   props: {
+  //     user: userFromPayload,
+  //   },
+  // };
 }

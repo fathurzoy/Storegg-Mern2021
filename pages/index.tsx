@@ -1,16 +1,13 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { useEffect } from "react";
-import styles from "../styles/Home.module.css";
 import AOS from "aos";
-import Navbar from "../components/organisms/Navbar";
-import MainBanner from "../components/organisms/MainBanner";
-import TransactionStep from "../components/organisms/TransactionStep";
+import type { NextPage } from "next";
+import { useEffect } from "react";
 import FeaturedGame from "../components/organisms/FeaturedGame";
+import Footer from "../components/organisms/Footer";
+import MainBanner from "../components/organisms/MainBanner";
+import Navbar from "../components/organisms/Navbar";
 import Reached from "../components/organisms/Reached";
 import Story from "../components/organisms/Story";
-import Footer from "../components/organisms/Footer";
+import TransactionStep from "../components/organisms/TransactionStep";
 
 const Home: NextPage = () => {
   useEffect(() => {

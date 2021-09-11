@@ -13,7 +13,7 @@ interface TransactionDetailProps {
 }
 const TransactionDetail = (props: TransactionDetailProps) => {
   const { transactionDetail } = props;
-  console.log("detail: ", transactionDetail);
+  // console.log("detail: ", transactionDetail);
 
   return (
     // <!-- Transactions Detail -->
@@ -35,7 +35,7 @@ interface getServerSideProps {
 }
 
 export async function getServerSideProps({ req, params }: getServerSideProps) {
-  console.log("params: ", params);
+  // console.log("params: ", params);
   const { idTrx } = params;
   const { token } = req.cookies;
   if (!token) {

@@ -16,7 +16,7 @@ const TransactionContent = () => {
     if (response.error) {
       toast.error(response.message);
     } else {
-      console.log("data: ", response.data);
+      // console.log("data: ", response.data);
       setTotal(response.data.total);
       setTransactions(response.data.data);
     }

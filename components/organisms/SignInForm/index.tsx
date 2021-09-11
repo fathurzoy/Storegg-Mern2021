@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import React, { useState } from "react";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css"; //toast sudah ditaro di _app global
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { setLogin } from "../../../services/auth";
-import { useRouter } from "next/dist/client/router";
-import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");

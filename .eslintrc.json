@@ -1,9 +1,16 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": 1
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  // "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -14,6 +21,8 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "linebreak-style": 0,
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
@@ -22,6 +31,27 @@
     "jsx-ally/anchor-is-valid": "off",
     "react/jsx-props-no-spreading": "off",
     "no-underscore-dangle": "off",
-    "jsx-ally/label-has-associated-control": "off"
+    "jsx-ally/label-has-associated-control": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  },
+  "settings": {
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolve": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 }
