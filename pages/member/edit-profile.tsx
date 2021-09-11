@@ -3,17 +3,23 @@ import React, { useEffect, useState } from "react";
 import Input from "../../components/atoms/Input";
 import SideBar from "../../components/organisms/SideBar";
 import Cookies from "js-cookie";
+
 import { JWTPayloadTypes, UserTypes } from "../../services/data-types";
 import jwtDecode from "jwt-decode";
+import { updateProfile } from "../../services/member";
+import { toast } from "react-toastify";
+import { useRouter } from "next/dist/client/router";
 
 const EditProfile = () => {
   const [user, setUser] = useState({
+    id: "",
     name: "",
     email: "",
     phone: "",
     avatar: "",
   });
   const [imagePreview, setImagePreview] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -27,8 +33,20 @@ const EditProfile = () => {
     }
   }, []);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     console.log("edit user: ", user);
+    const data = new FormData();
+
+    data.append("image", user.avatar);
+    data.append("name", user.name);
+    const response = await updateProfile(data, user.id);
+    if (response.error) {
+      toast.error(response.message);
+    } else {
+      console.log("data: ", response);
+      Cookies.remove("token");
+      router.push("/sign-in");
+    }
   };
 
   return (
