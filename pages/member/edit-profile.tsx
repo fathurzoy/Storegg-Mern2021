@@ -13,6 +13,7 @@ const EditProfile = () => {
     phone: "",
     avatar: "",
   });
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -25,6 +26,10 @@ const EditProfile = () => {
       // console.log("user", userFromPayload);
     }
   }, []);
+
+  const onSubmit = () => {
+    console.log("edit user: ", user);
+  };
 
   return (
     // <!-- Transactions Detail -->
@@ -49,25 +54,54 @@ const EditProfile = () => {
                 </div> */}
                 <div className="image-upload">
                   <label htmlFor="avatar">
-                    <img
-                      // src="/icon/upload.svg"
-                      src={user.avatar}
-                      alt="icon upload"
-                      width={90}
-                      height={90}
-                      style={{ borderRadius: "100%" }}
-                    />
+                    {imagePreview ? (
+                      <img
+                        // src="/icon/upload.svg"
+                        src={imagePreview}
+                        alt="icon upload"
+                        width={90}
+                        height={90}
+                        style={{ borderRadius: "100%" }}
+                      />
+                    ) : (
+                      <img
+                        // src="/icon/upload.svg"
+                        src={user.avatar}
+                        alt="icon upload"
+                        width={90}
+                        height={90}
+                        style={{ borderRadius: "100%" }}
+                      />
+                    )}
                   </label>
                   <input
                     id="avatar"
                     type="file"
                     name="avatar"
                     accept="image/png, image/jpeg"
+                    onChange={(event) => {
+                      // console.log(event.target.files[0]);
+                      const img = event.target.files[0];
+                      setImagePreview(URL.createObjectURL(img));
+                      return setUser({
+                        ...user,
+                        avatar: img,
+                      });
+                    }}
                   />
                 </div>
               </div>
               <div className="pt-30">
-                <Input label="Full Name" value={user.name} />
+                <Input
+                  label="Full Name"
+                  value={user.name}
+                  onChange={(event) =>
+                    setUser({
+                      ...user,
+                      name: event.target.value,
+                    })
+                  }
+                />
               </div>
               <div className="pt-30">
                 <Input label="Email Address" disabled value={user.email} />
@@ -77,9 +111,9 @@ const EditProfile = () => {
               </div> */}
               <div className="button-group d-flex flex-column pt-50">
                 <button
-                  type="submit"
+                  type="button"
                   className="btn btn-save fw-medium text-lg text-white rounded-pill"
-                  role="button"
+                  onClick={onSubmit}
                 >
                   Save My Profile
                 </button>
