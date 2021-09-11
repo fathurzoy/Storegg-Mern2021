@@ -70,12 +70,17 @@ const TransactionDetailContent = (props: TransactionDetailContentProps) => {
                 <h2 className="fw-bold text-xl color-palette-1 mb-20">
                   Payment Informations
                 </h2>
-                <Row label="Your Account Name" value="Masayoshi Angga Zero" />
-                <Row label="Type" value="Worldwide Transfer" />
-                <Row label="Bank Name" value="Mandiri" />
-                <Row label="Bank Account Name" value="PT Store GG Indonesia" />
-                <Row label="Bank Number" value="1800 - 9090 - 2021" />
-                <Row label="Bank Number" value="1800 - 9090 - 2021" />
+                <Row label="Your Account Name" value={data.name} />
+                <Row label="Type" value={data.historyPayment.type} />
+                <Row label="Bank Name" value={data.historyPayment.bankName} />
+                <Row
+                  label="Bank Account Name"
+                  value={data.historyPayment.name}
+                />
+                <Row
+                  label="Bank Number"
+                  value={data.historyPayment.noRekening}
+                />
               </div>
               <div className="d-md-block d-flex flex-column w-100">
                 <a
