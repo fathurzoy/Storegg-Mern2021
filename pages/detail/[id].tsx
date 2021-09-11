@@ -17,6 +17,10 @@ interface DetailProps {
   payments: PaymentTypes[];
 }
 const Detail = ({ dataItem, nominals, payments }: DetailProps) => {
+  useEffect(() => {
+    localStorage.setItem("data-item", JSON.stringify(dataItem));
+  }, []);
+
   // *Client Side
   // const { query, isReady } = useRouter();
   // const [dataItem, setDataItem] = useState({
