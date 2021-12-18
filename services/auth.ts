@@ -22,9 +22,9 @@ export async function setSignUp(data: FormData) {
   const url = `${ROOT_API}/${API_VERSION}/auth/signup`;
 
   return callApi({
-    url: url,
+    url,
     method: "POST",
-    data: data,
+    data,
   });
 }
 

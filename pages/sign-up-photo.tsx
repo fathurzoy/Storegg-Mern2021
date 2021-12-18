@@ -48,8 +48,8 @@ const SignUpPhoto = () => {
     data.append("email", form.email);
     data.append("name", form.name);
     data.append("password", form.password);
-    data.append("username", "fathur");
-    data.append("phoneNumber", "08981923239");
+    data.append("username", form.name);
+    data.append("phoneNumber", "08123456789");
     data.append("role", "user");
     data.append("status", "Y");
     data.append("favorite", favorite);
@@ -61,7 +61,9 @@ const SignUpPhoto = () => {
     } else {
       toast.success("Register Berhasil");
       router.push("/sign-up-success");
-      localStorage.removeItem("user-form");
+      // [CODE UPDATE] di tutorial saya simpan remove user-form disini,
+      // saya rubah remove nya menjadi di halaman setelahnya.
+      // localStorage.removeItem('user-form');
     }
     // console.log("result:", result);
   };
@@ -80,8 +82,6 @@ const SignUpPhoto = () => {
                     {imagePreview ? (
                       <img
                         src={imagePreview}
-                        width={120}
-                        height={120}
                         className="img-upload"
                         alt="upload"
                       />

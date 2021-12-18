@@ -3,6 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 
 const SignUpSuccess = () => {
+  // [CODE UPDATE] saya menambahkan remove user-form disini
+  useEffect(() => {
+    localStorage.removeItem("user-form");
+  }, []);
   return (
     // <!-- Sign Up Success -->
     <section className="sign-up-success mx-auto pt-md-179 pb-md-179 pt-150 pb-100">

@@ -27,7 +27,6 @@ export default async function callApi({
       };
     }
   }
-
   const response = await axios({
     url,
     method,
